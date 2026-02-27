@@ -1,0 +1,11 @@
+order_id,customer_name,product,quantity,unit_price,total_amount,region,order_date
+2001,Ivy Taylor,Printer,1,12000,12000,North,2024-04-03
+2002,Jack Anderson,Scanner,1,9000,9000,South,2024-04-06
+2003,Karen Thomas,Laptop,1,85000,85000,East,2024-04-09
+2004,Leo Jackson,Chair,1,7500,7500,West,2024-04-11
+2005,Mia Harris,Desk,1,22000,22000,North,2024-04-14
+2006,Noah Martin,SSD Drive,2,5500,11000,South,2024-04-17
+2007,Olivia Lee,RAM Module,4,3000,12000,East,2024-04-20
+2008,Paul Walker,Laptop,1,85000,85000,West,2024-04-23
+1005,Eve Davis,Headphones,2,3500,7000,North,2024-01-15
+2001,Ivy Taylor,Printer,1,12000,12000,North,2024-04-03

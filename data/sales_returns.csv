@@ -1,0 +1,9 @@
+order_id,customer_name,product,quantity,unit_price,total_amount,region,order_date
+5001,George Hall,Laptop,1,85000,85000,North,2024-11-05
+5002,Hannah Ito,Mouse,5,750,3750,South,2024-11-07
+5003,Ian Jonah,Monitor,2,18000,36000,East,2024-11-09
+5004,Julia King,Keyboard,1,1500,1500,West,2024-11-12
+5005,Kevin Lane,Webcam,3,2500,7500,North,2024-11-14
+4006,Diana Evans,Smart Watch,2,25000,50000,South,2024-10-16
+1008,Henry Moore,Laptop,2,85000,170000,West,2024-01-22
+5001,George Hall,Laptop,1,85000,85000,North,2024-11-05

@@ -1,0 +1,11 @@
+order_id,customer_name,product,quantity,unit_price,total_amount,region,order_date
+4001,Yara Adams,Gaming Console,1,52000,52000,North,2024-10-01
+4002,Zoe Baker,Controller,2,4500,9000,South,2024-10-04
+4003,Aaron Carter,Smart TV,1,75000,75000,East,2024-10-07
+4004,Bella Collins,Soundbar,1,18000,18000,West,2024-10-10
+4005,Carlos Diaz,Router,1,6500,6500,North,2024-10-13
+4006,Diana Evans,Smart Watch,2,25000,50000,South,2024-10-16
+4007,Ethan Foster,Earbuds,3,8000,24000,East,2024-10-19
+4008,Fiona Green,Laptop Stand,2,3000,6000,West,2024-10-22
+3005,Uma Young,Projector,1,45000,45000,North,2024-07-15
+4001,Yara Adams,Gaming Console,1,52000,52000,North,2024-10-01

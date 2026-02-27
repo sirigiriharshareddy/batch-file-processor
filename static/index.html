@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Batch File Processor | Professional CSV Pipeline</title>
+  <meta name="description" content="A professional batch CSV file processor — detect, combine, deduplicate, and export multiple CSV files with one click." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Animated background ───────────────────────────────────────── -->
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-orb orb-1" aria-hidden="true"></div>
+  <div class="bg-orb orb-2" aria-hidden="true"></div>
+
+  <!-- ── Top Nav ────────────────────────────────────────────────────── -->
+  <header class="navbar">
+    <div class="nav-brand">
+      <span class="nav-icon">⚡</span>
+      <span class="nav-title">BatchProcessor</span>
+      <span class="nav-badge">v2.0</span>
+    </div>
+    <div class="nav-status" id="serverStatus">
+      <span class="status-dot" id="statusDot"></span>
+      <span id="statusLabel">Connecting…</span>
+    </div>
+  </header>
+
+  <!-- ── Main Layout ────────────────────────────────────────────────── -->
+  <main class="main-wrapper">
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1 class="hero-title">
+        Batch CSV
+        <span class="gradient-text">Processor</span>
+      </h1>
+      <p class="hero-subtitle">
+        Automatically detect, combine, deduplicate and export multiple CSV files — production-ready, blazing fast.
+      </p>
+    </section>
+
+    <!-- ── Control Panel ──────────────────────────────────────────── -->
+    <section class="card control-card">
+      <div class="card-header">
+        <span class="card-icon">🗂️</span>
+        <h2 class="card-title">Control Panel</h2>
+      </div>
+
+      <div class="input-row">
+        <div class="input-group">
+          <label class="input-label" for="inputDir">Input Directory</label>
+          <div class="input-wrapper">
+            <span class="input-prefix">📁</span>
+            <input id="inputDir" class="text-input" type="text" value="data" placeholder="Relative or absolute path" />
+          </div>
+        </div>
+        <div class="input-group">
+          <label class="input-label" for="outputPath">Output File</label>
+          <div class="input-wrapper">
+            <span class="input-prefix">💾</span>
+            <input id="outputPath" class="text-input" type="text" value="final_output.csv" placeholder="Output CSV filename" />
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button id="btnDetect" class="btn btn-secondary" onclick="detectFiles()">
+          <span class="btn-icon">🔍</span> Detect Files
+        </button>
+        <button id="btnProcess" class="btn btn-primary" onclick="runProcessor()" disabled>
+          <span class="btn-icon">▶</span> Run Processor
+        </button>
+      </div>
+    </section>
+
+    <!-- ── File List ───────────────────────────────────────────────── -->
+    <section class="card file-card" id="fileSection" style="display:none">
+      <div class="card-header">
+        <span class="card-icon">📋</span>
+        <h2 class="card-title">Detected Files</h2>
+        <span class="card-badge" id="fileCount">0 files</span>
+      </div>
+      <div class="file-list" id="fileList"></div>
+    </section>
+
+    <!-- ── Progress Bar ────────────────────────────────────────────── -->
+    <div class="progress-container" id="progressSection" style="display:none">
+      <div class="progress-label">
+        <span id="progressLabel">Processing…</span>
+        <span id="progressPct">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
+
+    <!-- ── Stats Dashboard ────────────────────────────────────────── -->
+    <section id="statsSection" style="display:none">
+      <div class="stats-grid">
+        <div class="stat-card" id="statFilesProcessed">
+          <div class="stat-icon">📁</div>
+          <div class="stat-value" id="valFilesProcessed">—</div>
+          <div class="stat-label">Files Processed</div>
+        </div>
+        <div class="stat-card" id="statRecordsBefore">
+          <div class="stat-icon">📊</div>
+          <div class="stat-value" id="valRecordsBefore">—</div>
+          <div class="stat-label">Records Before</div>
+        </div>
+        <div class="stat-card" id="statRecordsAfter">
+          <div class="stat-icon">✨</div>
+          <div class="stat-value" id="valRecordsAfter">—</div>
+          <div class="stat-label">Records After</div>
+        </div>
+        <div class="stat-card accent-red" id="statDuplicates">
+          <div class="stat-icon">🗑️</div>
+          <div class="stat-value" id="valDuplicates">—</div>
+          <div class="stat-label">Duplicates Removed</div>
+        </div>
+      </div>
+
+      <!-- Detailed breakdown table -->
+      <div class="card results-card">
+        <div class="card-header">
+          <span class="card-icon">📈</span>
+          <h2 class="card-title">Per-File Breakdown</h2>
+          <span class="timing-badge" id="timingBadge"></span>
+        </div>
+        <div class="table-wrapper">
+          <table class="results-table" id="resultsTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>File Name</th>
+                <th>Rows Loaded</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+        <div class="output-banner" id="outputBanner"></div>
+      </div>
+    </section>
+
+    <!-- ── Log Console ─────────────────────────────────────────────── -->
+    <section class="card log-card" id="logSection" style="display:none">
+      <div class="card-header">
+        <span class="card-icon">🖥️</span>
+        <h2 class="card-title">Live Console</h2>
+        <button class="btn-clear" onclick="clearLogs()">Clear</button>
+      </div>
+      <div class="log-console" id="logConsole"></div>
+    </section>
+
+  </main>
+
+  <!-- ── Toast Notification ─────────────────────────────────────── -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

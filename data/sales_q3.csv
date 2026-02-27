@@ -1,0 +1,11 @@
+order_id,customer_name,product,quantity,unit_price,total_amount,region,order_date
+3001,Quinn Robinson,Laptop,3,85000,255000,North,2024-07-02
+3002,Rachel Clark,Tablet,2,35000,70000,South,2024-07-05
+3003,Sam Lewis,Smartphone,1,55000,55000,East,2024-07-08
+3004,Tina Hall,External HDD,2,4500,9000,West,2024-07-11
+3005,Uma Young,Projector,1,45000,45000,North,2024-07-15
+3006,Victor King,Docking Station,1,8000,8000,South,2024-07-18
+3007,Wendy Wright,Graphics Card,1,35000,35000,East,2024-07-21
+3008,Xander Scott,Power Supply,2,3500,7000,West,2024-07-24
+2003,Karen Thomas,Laptop,1,85000,85000,East,2024-04-09
+3001,Quinn Robinson,Laptop,3,85000,255000,North,2024-07-02

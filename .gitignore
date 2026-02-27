@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+node_modules/
+.env
+.venv/
+venv/
+logs/
+tmp_uploads/
+final_output.csv
+dist/
+build/
+.DS_Store
+.vscode/
+frontend/dist/
+backend/__pycache__/

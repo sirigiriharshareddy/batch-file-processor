@@ -1,0 +1,11 @@
+order_id,customer_name,product,quantity,unit_price,total_amount,region,order_date
+1001,Alice Johnson,Laptop,1,85000,85000,North,2024-01-05
+1002,Bob Smith,Mouse,3,750,2250,South,2024-01-07
+1003,Carol White,Keyboard,2,1500,3000,East,2024-01-10
+1004,David Brown,Monitor,1,18000,18000,West,2024-01-12
+1005,Eve Davis,Headphones,2,3500,7000,North,2024-01-15
+1006,Frank Miller,Webcam,1,2500,2500,South,2024-01-18
+1007,Grace Wilson,USB Hub,4,800,3200,East,2024-01-20
+1008,Henry Moore,Laptop,2,85000,170000,West,2024-01-22
+1001,Alice Johnson,Laptop,1,85000,85000,North,2024-01-05
+1003,Carol White,Keyboard,2,1500,3000,East,2024-01-10
