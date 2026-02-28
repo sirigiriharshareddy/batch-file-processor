@@ -94,7 +94,6 @@ function App() {
                     <a href="#" className="nav-link" onClick={() => setView('landing')}>Home</a>
                     <a href="#" className="nav-link" onClick={() => setView('about')}>About</a>
                     <a href="#" className="nav-link" onClick={() => setView('documentation')}>Documentation</a>
-                    <a href="https://github.com" className="nav-link">GitHub</a>
                 </div>
                 <div className="nav-actions" style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                     {user && (

@@ -13,3 +13,4 @@ build/
 .vscode/
 frontend/dist/
 backend/__pycache__/
+data/users.json
