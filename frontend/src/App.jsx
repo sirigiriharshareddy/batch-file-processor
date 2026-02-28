@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import './App.css'
+import Login from './Login'
 
 const BACKEND_URL = 'http://127.0.0.1:5000/api/process'
 
@@ -9,6 +10,7 @@ function App() {
     const [isLoading, setIsLoading] = useState(false)
     const [results, setResults] = useState(null)
     const [error, setError] = useState(null)
+    const [user, setUser] = useState(null) // State to store logged in user
 
     const inputRef = useRef(null)
 
@@ -94,8 +96,17 @@ function App() {
                     <a href="#" className="nav-link" onClick={() => setView('documentation')}>Documentation</a>
                     <a href="https://github.com" className="nav-link">GitHub</a>
                 </div>
-                <div className="nav-actions">
-                    <button className="btn btn-primary" onClick={() => setView('landing')}>Get Started</button>
+                <div className="nav-actions" style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                    {user && (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginRight: '8px' }}>
+                            <div style={{ width: 8, height: 8, background: 'var(--success)', borderRadius: '50%' }}></div>
+                            <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>{user.username}</span>
+                        </div>
+                    )}
+                    <button className="btn btn-outline" style={{ padding: '8px 16px' }} onClick={() => {
+                        setUser(null);
+                        setView('login');
+                    }}>Logout</button>
                 </div>
             </div>
         </nav>
@@ -343,6 +354,13 @@ function App() {
             </div>
         </div>
     )
+
+    if (!user) {
+        return <Login onLogin={(userData) => {
+            setUser(userData);
+            setView('landing');
+        }} />
+    }
 
     return (
         <div className="app-container">

@@ -149,6 +149,78 @@ def health():
 
 
 # ---------------------------------------------------------------------------
+# API: Authentication & Persistence
+# ---------------------------------------------------------------------------
+
+class UserStore:
+    def __init__(self, storage_path):
+        self.path = Path(storage_path)
+        if not self.path.exists():
+            self.path.parent.mkdir(parents=True, exist_ok=True)
+            self._save([])
+
+    def _load(self):
+        try:
+            with open(self.path, "r") as f:
+                return json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            return []
+
+    def _save(self, users):
+        with open(self.path, "w") as f:
+            json.dump(users, f, indent=4)
+
+    def find_user(self, username):
+        users = self._load()
+        return next((u for u in users if u["username"] == username), None)
+
+    def add_user(self, username, password):
+        users = self._load()
+        if any(u["username"] == username for u in users):
+            return False
+        users.append({"id": len(users) + 1, "username": username, "password": password})
+        self._save(users)
+        return True
+
+user_store = UserStore(DATA_DIR / "users.json")
+
+@app.route("/api/signup", methods=["POST"])
+def signup():
+    """
+    POST /api/signup
+    Create a new user.
+    """
+    data = request.json
+    username = data.get("username")
+    password = data.get("password")
+
+    if not username or not password:
+        return jsonify({"success": False, "error": "Username and password required"}), 400
+
+    if user_store.add_user(username, password):
+        user = user_store.find_user(username)
+        return jsonify({"success": True, "user": {"id": user["id"], "username": user["username"]}})
+    
+    return jsonify({"success": False, "error": "Username already exists"}), 409
+
+@app.route("/api/login", methods=["POST"])
+def login():
+    """
+    POST /api/login
+    Validate user against stored JSON.
+    """
+    data = request.json
+    username = data.get("username")
+    password = data.get("password")
+
+    user = user_store.find_user(username)
+    if user and user["password"] == password:
+        return jsonify({"success": True, "user": {"id": user["id"], "username": user["username"]}})
+    
+    return jsonify({"success": False, "error": "Invalid credentials"}), 401
+
+
+# ---------------------------------------------------------------------------
 # Run
 # ---------------------------------------------------------------------------
 
